@@ -59,7 +59,10 @@ export default function Vouchers() {
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
 
   return (
-    <section id="poukazy" className="py-24 md:py-32">
+    <section id="poukazy" className="py-24 md:py-32 section-atmosphere" style={{ backgroundColor: "#0a0706" }}>
+      <span className="atmosphere-particle" style={{ width: 4, height: 4, top: "18%", left: "72%", animation: "float-1 24s ease-in-out infinite" }} />
+      <span className="atmosphere-particle" style={{ width: 6, height: 6, top: "58%", left: "18%", animation: "float-2 24s ease-in-out 3s infinite" }} />
+      <span className="atmosphere-particle" style={{ width: 5, height: 5, top: "82%", left: "62%", animation: "float-3 24s ease-in-out 5s infinite" }} />
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* 3D flip card */}

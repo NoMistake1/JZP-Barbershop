@@ -20,7 +20,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="kontakt" className="py-24 md:py-32" style={{ backgroundColor: "#0d0d0b" }}>
+    <section id="kontakt" className="py-24 md:py-32 section-glow" style={{ backgroundColor: "#0a0706" }}>
       <div className="max-w-7xl mx-auto px-6">
         <SectionReveal>
           <div className="text-center mb-16">

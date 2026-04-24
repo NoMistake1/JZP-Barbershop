@@ -10,7 +10,7 @@ export default function Pricing() {
   const [activeCategory, setActiveCategory] = useState(0);
 
   return (
-    <section id="cenik" className="py-24 md:py-32" style={{ backgroundColor: "#0d0d0b" }}>
+    <section id="cenik" className="py-24 md:py-32 section-glow" style={{ backgroundColor: "#0a0706" }}>
       <div className="max-w-4xl mx-auto px-6">
         <SectionReveal>
           <div className="text-center mb-16">
@@ -68,12 +68,12 @@ export default function Pricing() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.07 }}
-              className="relative flex items-center justify-between px-8 py-5 group transition-colors duration-200"
+              className="pricing-row flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-6 md:px-8 py-5 group transition-colors duration-200"
               style={{ borderBottom: i < t.pricing.categories[activeCategory].items.length - 1 ? "1px solid rgba(201,164,107,0.08)" : "none" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,164,107,0.04)")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 min-w-0">
                 <span
                   className="text-base"
                   style={{ color: "#f0ead6", fontFamily: "var(--font-inter)" }}
@@ -81,12 +81,7 @@ export default function Pricing() {
                   {item.name}
                 </span>
                 {item.popular && (
-                  <span
-                    className="text-[10px] tracking-widest uppercase px-2 py-0.5"
-                    style={{ backgroundColor: "rgba(201,164,107,0.15)", color: "#c9a46b", border: "1px solid rgba(201,164,107,0.3)" }}
-                  >
-                    {t.pricing.popular}
-                  </span>
+                  <span className="pricing-badge">{t.pricing.popular}</span>
                 )}
               </div>
               <span

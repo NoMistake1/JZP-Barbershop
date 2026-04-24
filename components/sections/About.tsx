@@ -43,7 +43,7 @@ export default function About() {
   const { t } = useLanguage();
 
   return (
-    <section id="o-nas" className="py-24 md:py-32">
+    <section id="o-nas" className="py-24 md:py-32 section-glow" style={{ backgroundColor: "#0a0706" }}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Image */}

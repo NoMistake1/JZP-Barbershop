@@ -36,7 +36,7 @@ export default function FloatingCTA() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[700] lg:hidden"
+          className="fixed bottom-6 right-6 z-[700]"
         >
           <a
             href="#booking"

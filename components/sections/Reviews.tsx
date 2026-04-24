@@ -23,9 +23,12 @@ export default function Reviews() {
 
   return (
     <section
-      className="py-24 md:py-32 overflow-hidden"
+      className="py-24 md:py-32 section-atmosphere"
       style={{ backgroundColor: "#0a0706" }}
     >
+      <span className="atmosphere-particle" style={{ width: 4, height: 4, top: "12%", left: "20%", animation: "float-1 24s ease-in-out infinite" }} />
+      <span className="atmosphere-particle" style={{ width: 5, height: 5, top: "48%", left: "82%", animation: "float-2 24s ease-in-out 3s infinite" }} />
+      <span className="atmosphere-particle" style={{ width: 6, height: 6, top: "78%", left: "14%", animation: "float-3 24s ease-in-out 5s infinite" }} />
       <div className="max-w-7xl mx-auto px-6 mb-16">
         <SectionReveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -90,8 +93,9 @@ export default function Reviews() {
             return (
               <div
                 key={i}
-                className="flex-shrink-0 w-80 p-7 relative transition-transform duration-500 hover:-translate-y-2"
+                className="review-card flex-shrink-0 w-80 relative transition-transform duration-500 hover:-translate-y-2"
                 style={{
+                  padding: "1.75rem 1.5rem",
                   backgroundColor: "rgba(20,16,16,0.5)",
                   backdropFilter: "blur(10px)",
                   WebkitBackdropFilter: "blur(10px)",
@@ -109,8 +113,8 @@ export default function Reviews() {
 
                 <Stars count={review.rating} />
                 <p
-                  className="mt-4 mb-6 text-sm leading-relaxed"
-                  style={{ color: "#c9c0ad", fontFamily: "var(--font-inter)" }}
+                  className="review-text mt-4 mb-6 leading-relaxed"
+                  style={{ color: "#c9c0ad", fontFamily: "var(--font-inter)", fontSize: "1.05rem" }}
                 >
                   {review.text}
                 </p>

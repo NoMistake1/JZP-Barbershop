@@ -16,7 +16,10 @@ export default function Barbers() {
   const { t } = useLanguage();
 
   return (
-    <section id="barberi" className="py-24 md:py-32">
+    <section id="barberi" className="py-24 md:py-32 section-atmosphere" style={{ backgroundColor: "#0a0706" }}>
+      <span className="atmosphere-particle" style={{ width: 5, height: 5, top: "22%", left: "14%", animation: "float-1 24s ease-in-out infinite" }} />
+      <span className="atmosphere-particle" style={{ width: 4, height: 4, top: "62%", left: "78%", animation: "float-2 24s ease-in-out 2s infinite" }} />
+      <span className="atmosphere-particle" style={{ width: 6, height: 6, top: "80%", left: "36%", animation: "float-3 24s ease-in-out 4s infinite" }} />
       <div className="max-w-7xl mx-auto px-6">
         <SectionReveal>
           <div className="text-center mb-16">

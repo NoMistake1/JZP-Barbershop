@@ -114,6 +114,17 @@ export const translations = {
       validity: "12 měsíců platnost",
       giftText: "Dárkový poukaz",
     },
+    videoLoop: {
+      quote: "Dobrý střih se pozná po šesti týdnech.",
+    },
+    gallery: {
+      sectionLabel: "Galerie prací",
+      title: "Každý detail vypráví příběh",
+      subtitle: "Klikněte pro zvětšení",
+      close: "Zavřít",
+      prev: "Předchozí",
+      next: "Další",
+    },
     reviews: {
       sectionLabel: "Recenze",
       title: "Co říkají naši klienti",
@@ -310,6 +321,17 @@ export const translations = {
       validFor: "Valid on all services",
       validity: "12 months validity",
       giftText: "Gift Voucher",
+    },
+    videoLoop: {
+      quote: "A good cut only reveals itself six weeks later.",
+    },
+    gallery: {
+      sectionLabel: "Gallery",
+      title: "Every detail tells a story",
+      subtitle: "Click to enlarge",
+      close: "Close",
+      prev: "Previous",
+      next: "Next",
     },
     reviews: {
       sectionLabel: "Reviews",
