@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git --yes)",
+      "Read(//Users/otomanek/**)",
+      "Bash(npx create-next-app@latest jzp-barbershop --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git --yes)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(node -e \"require\\('/Users/otomanek/JZP_Barbershop/node_modules/next/dist/server/require-hook'\\)\")",
+      "Bash(node /Users/otomanek/JZP_Barbershop/node_modules/next/dist/bin/next build)",
+      "Bash(ln -s ../next/dist/bin/next node_modules/.bin/next)",
+      "Bash(curl -s http://localhost:3000)"
+    ]
+  }
+}
