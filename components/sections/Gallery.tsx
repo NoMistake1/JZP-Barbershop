@@ -53,9 +53,11 @@ export default function Gallery() {
     document.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.body.classList.add("lightbox-open");
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
+      document.body.classList.remove("lightbox-open");
     };
   }, [openIndex, close, next, prev]);
 
@@ -137,7 +139,7 @@ export default function Gallery() {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); close(); }}
-            className="lightbox-btn"
+            className="lightbox-btn lightbox-close"
             style={{ top: "1.25rem", right: "1.25rem" }}
             aria-label={t.gallery.close}
           >
@@ -146,7 +148,7 @@ export default function Gallery() {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="lightbox-btn"
+            className="lightbox-btn lightbox-prev"
             style={{ left: "1.25rem", top: "50%", transform: "translateY(-50%)" }}
             aria-label={t.gallery.prev}
           >
@@ -155,7 +157,7 @@ export default function Gallery() {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); next(); }}
-            className="lightbox-btn"
+            className="lightbox-btn lightbox-next"
             style={{ right: "1.25rem", top: "50%", transform: "translateY(-50%)" }}
             aria-label={t.gallery.next}
           >

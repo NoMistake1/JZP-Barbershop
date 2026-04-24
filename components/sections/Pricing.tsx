@@ -68,28 +68,18 @@ export default function Pricing() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.07 }}
-              className="pricing-row flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-6 md:px-8 py-5 group transition-colors duration-200"
+              className="pricing-row px-6 md:px-8 py-5 group transition-colors duration-200"
               style={{ borderBottom: i < t.pricing.categories[activeCategory].items.length - 1 ? "1px solid rgba(201,164,107,0.08)" : "none" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,164,107,0.04)")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
             >
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 min-w-0">
-                <span
-                  className="text-base"
-                  style={{ color: "#f0ead6", fontFamily: "var(--font-inter)" }}
-                >
-                  {item.name}
-                </span>
-                {item.popular && (
-                  <span className="pricing-badge">{t.pricing.popular}</span>
-                )}
+              <div className="pricing-header">
+                <span className="pricing-name">{item.name}</span>
+                <span className="pricing-price">{item.price}</span>
               </div>
-              <span
-                className="text-lg font-light"
-                style={{ color: "#c9a46b", fontFamily: "var(--font-playfair)" }}
-              >
-                {item.price}
-              </span>
+              {item.popular && (
+                <span className="pricing-badge">{t.pricing.popular}</span>
+              )}
             </motion.div>
           ))}
         </motion.div>

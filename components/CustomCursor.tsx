@@ -40,7 +40,7 @@ export default function CustomCursor() {
     <>
       {/* Outer ring */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border"
+        className="custom-cursor-ring fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border"
         style={{
           borderColor: "rgba(201,164,107,0.5)",
           x: pos.x - (isHovering ? 20 : 16),
@@ -55,7 +55,7 @@ export default function CustomCursor() {
       />
       {/* Inner dot */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full"
+        className="custom-cursor-dot fixed top-0 left-0 pointer-events-none z-[9999] rounded-full"
         style={{
           backgroundColor: "#c9a46b",
           width: 6,

@@ -131,33 +131,23 @@ export const translations = {
       googleRating: "4.9 ★ na Google",
       items: [
         {
-          text: "Nejlepší barbershop v Praze. Jakub mi udělal přesně to, co jsem chtěl — skin fade s texturedem topem. Výsledek je perfektní a za tu cenu super.",
-          author: "Ondřej S.",
+          text: "Nejlepší střih za posledních deset let. Jakub opravdu poslouchá a stříhá to, co sedí mé hlavě. Ne to, co si myslím, že chci.",
+          author: "David H.",
           rating: 5,
         },
         {
-          text: "Nádherný interiér, přátelský přístup a profesionální práce. Holení břitvou bylo naprosto relaxační. Rozhodně se vrátím.",
-          author: "Marek J.",
+          text: "Přiletěl jsem z Berlína na víkend a objednal se na holení ze zvědavosti. Teď budu každou cestu do Prahy plánovat kolem křesla u JZP.",
+          author: "Jonas K.",
           rating: 5,
         },
         {
-          text: "Pravidelně chodím k Pavlovi. Vždy přesně ví, co mi sluší. Oceňuji, že si dají čas na konzultaci. 10/10.",
-          author: "Lukáš F.",
+          text: "Samotná masáž hlavy stojí za tu cestu. Odešel jsem o čtyřicet minut novější. Tomáš se ve fade opravdu vyzná.",
+          author: "Petra M.",
           rating: 5,
         },
         {
-          text: "Konečně barbershop, který bere řemeslo vážně. Klasické holení břitvou v skvělé atmosféře. Gentleman balíček za každou korunu stojí.",
-          author: "David V.",
-          rating: 5,
-        },
-        {
-          text: "Chodím sem s celou rodinou. Péče o zákazníka na první úrovni, vždy se cítím jako VIP host. Lepší místo v Praze nenajdete.",
-          author: "Petr N.",
-          rating: 5,
-        },
-        {
-          text: "Vousy mi tvaroval Martin a byl jsem naprosto nadšený. Přesná linka, dobrý poradenský přístup. Barbershop s duší.",
-          author: "Tomáš B.",
+          text: "Klidné, bezchybné, perfektně načasované. Espresso při příchodu, whisky na odchod. Takhle to má vypadat.",
+          author: "Martin Š.",
           rating: 5,
         },
       ],
@@ -339,33 +329,23 @@ export const translations = {
       googleRating: "4.9 ★ on Google",
       items: [
         {
-          text: "Best barbershop in Prague. Jakub gave me exactly what I wanted — skin fade with textured top. The result is perfect and great value.",
-          author: "Ondřej S.",
+          text: "Best haircut in a decade. Jakub actually listens and cuts what suits my head — not what I think I want.",
+          author: "David H.",
           rating: 5,
         },
         {
-          text: "Beautiful interior, friendly staff, and professional work. The straight razor shave was absolutely relaxing. Definitely coming back.",
-          author: "Marek J.",
+          text: "I flew in from Berlin for the weekend and booked a shave out of curiosity. Every Prague trip now gets planned around the JZP chair.",
+          author: "Jonas K.",
           rating: 5,
         },
         {
-          text: "I go to Pavel regularly. He always knows exactly what suits me. I appreciate the time they take for consultation. 10/10.",
-          author: "Lukáš F.",
+          text: "The head massage alone is worth the trip. Walked out forty minutes newer. Tomáš really knows his way around a fade.",
+          author: "Petra M.",
           rating: 5,
         },
         {
-          text: "Finally a barbershop that takes the craft seriously. Classic straight razor shave in a great atmosphere. The Gentleman package is worth every penny.",
-          author: "David V.",
-          rating: 5,
-        },
-        {
-          text: "I come here with the whole family. Customer care is top tier, I always feel like a VIP guest. Best place in Prague.",
-          author: "Petr N.",
-          rating: 5,
-        },
-        {
-          text: "Martin shaped my beard and I was absolutely thrilled. Precise lines, great advisory approach. A barbershop with soul.",
-          author: "Tomáš B.",
+          text: "Calm, flawless, perfectly timed. Espresso on arrival, whisky on the way out. This is how it should look.",
+          author: "Martin Š.",
           rating: 5,
         },
       ],

@@ -113,8 +113,8 @@ export default function Reviews() {
 
                 <Stars count={review.rating} />
                 <p
-                  className="review-text mt-4 mb-6 leading-relaxed"
-                  style={{ color: "#c9c0ad", fontFamily: "var(--font-inter)", fontSize: "1.05rem" }}
+                  className="review-text mt-4 mb-6"
+                  style={{ color: "#c9c0ad", fontFamily: "var(--font-inter)" }}
                 >
                   {review.text}
                 </p>

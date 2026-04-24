@@ -1,143 +1,165 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionReveal from "@/components/SectionReveal";
 
-const RESULTS = [
+const PAIRS = [
   {
-    src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=900&q=80",
-    alt: "Skin fade s texturovaným topem",
+    before: "/images/before-1.jpg",
+    after: "/images/after-1.jpg",
+    altBefore: "Před střihem",
+    altAfter: "Po střihu — skin fade",
   },
   {
-    src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=80",
-    alt: "Klasický střih s holením břitvou",
+    before: "/images/before-2.jpg",
+    after: "/images/after-2.jpg",
+    altBefore: "Před úpravou vousů",
+    altAfter: "Po profesionální úpravě vousů",
   },
   {
-    src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=900&q=80",
-    alt: "Úprava vousů a konturování",
+    before: "/images/before-3.jpg",
+    after: "/images/after-3.jpg",
+    altBefore: "Před holením",
+    altAfter: "Po holení břitvou",
   },
 ];
 
+function CompareSlider({
+  before,
+  after,
+  altBefore,
+  altAfter,
+}: {
+  before: string;
+  after: string;
+  altBefore: string;
+  altAfter: string;
+}) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  const setPos = useCallback((clientX: number) => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pctRaw = ((clientX - rect.left) / rect.width) * 100;
+    const pct = Math.max(5, Math.min(95, pctRaw));
+    el.style.setProperty("--divider", `${pct}%`);
+    el.style.setProperty("--reveal", `${100 - pct}%`);
+  }, []);
+
+  const onMouseMove = (e: React.MouseEvent) => setPos(e.clientX);
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (e.touches[0]) setPos(e.touches[0].clientX);
+  };
+
+  return (
+    <div
+      ref={wrapRef}
+      className="compare-slider relative overflow-hidden select-none"
+      style={
+        {
+          aspectRatio: "4 / 5",
+          border: "1px solid rgba(201,164,107,0.15)",
+          ["--divider" as string]: "50%",
+          ["--reveal" as string]: "50%",
+        } as React.CSSProperties
+      }
+      onMouseMove={onMouseMove}
+      onTouchStart={onTouchMove}
+      onTouchMove={onTouchMove}
+    >
+      {/* Before (bottom) */}
+      <Image
+        src={before}
+        alt={altBefore}
+        fill
+        sizes="(max-width: 768px) 100vw, 33vw"
+        className="object-cover pointer-events-none"
+        draggable={false}
+      />
+      {/* After (top, clipped) */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ clipPath: "inset(0 var(--reveal, 50%) 0 0)" }}
+      >
+        <Image
+          src={after}
+          alt={altAfter}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover"
+          draggable={false}
+        />
+      </div>
+
+      {/* Labels */}
+      <span
+        className="absolute top-3 left-3 px-2 py-1 uppercase pointer-events-none"
+        style={{
+          fontSize: "0.65rem",
+          letterSpacing: "0.25em",
+          color: "#f0ead6",
+          backgroundColor: "rgba(10,7,6,0.7)",
+          fontFamily: "var(--font-inter)",
+          fontWeight: 500,
+        }}
+      >
+        Před
+      </span>
+      <span
+        className="absolute top-3 right-3 px-2 py-1 uppercase pointer-events-none"
+        style={{
+          fontSize: "0.65rem",
+          letterSpacing: "0.25em",
+          color: "#0a0706",
+          backgroundColor: "rgba(201,164,107,0.95)",
+          fontFamily: "var(--font-inter)",
+          fontWeight: 600,
+        }}
+      >
+        Po
+      </span>
+
+      {/* Divider line */}
+      <div
+        className="absolute top-0 bottom-0 pointer-events-none"
+        style={{
+          left: "var(--divider, 50%)",
+          width: "2px",
+          background: "#c9a46b",
+          transform: "translateX(-1px)",
+        }}
+      />
+
+      {/* Handle */}
+      <div
+        className="absolute pointer-events-none flex items-center justify-center"
+        style={{
+          left: "var(--divider, 50%)",
+          top: "50%",
+          width: "44px",
+          height: "44px",
+          transform: "translate(-50%, -50%)",
+          borderRadius: "50%",
+          backgroundColor: "#c9a46b",
+          color: "#0a0706",
+          fontFamily: "var(--font-inter)",
+          fontWeight: 600,
+          fontSize: "1rem",
+          letterSpacing: "0.1em",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+        }}
+      >
+        ‹ ›
+      </div>
+    </div>
+  );
+}
+
 export default function BeforeAfter() {
   const { t } = useLanguage();
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  const centerOn = (index: number, behavior: ScrollBehavior = "smooth") => {
-    const track = trackRef.current;
-    if (!track) return;
-    const items = track.querySelectorAll<HTMLElement>(".results-item");
-    const item = items[index];
-    if (!item) return;
-    const target = item.offsetLeft - (track.clientWidth - item.clientWidth) / 2;
-    track.scrollTo({ left: target, behavior });
-  };
-
-  // Initial center on middle item
-  useEffect(() => {
-    requestAnimationFrame(() => centerOn(1, "auto"));
-    setMounted(true);
-  }, []);
-
-  // Auto-demo once per session on first viewport entry
-  useEffect(() => {
-    if (!mounted) return;
-    if (typeof window === "undefined") return;
-    const track = trackRef.current;
-    if (!track) return;
-    if (sessionStorage.getItem("results-demoed") === "1") return;
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
-
-    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-    const animateBy = (delta: number, duration: number) =>
-      new Promise<void>((resolve) => {
-        const start = track.scrollLeft;
-        const target = start + delta;
-        const t0 = performance.now();
-        const ease = (p: number) => {
-          // cubic-bezier(0.4, 0, 0.2, 1) approximation — smooth
-          return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-        };
-        const step = (now: number) => {
-          const p = Math.min(1, (now - t0) / duration);
-          track.scrollLeft = start + (target - start) * ease(p);
-          if (p < 1) requestAnimationFrame(step);
-          else resolve();
-        };
-        requestAnimationFrame(step);
-      });
-
-    const observer = new IntersectionObserver(
-      async (entries) => {
-        const [entry] = entries;
-        if (!entry.isIntersecting || entry.intersectionRatio < 0.4) return;
-        observer.disconnect();
-        sessionStorage.setItem("results-demoed", "1");
-        await animateBy(220, 700);
-        await sleep(250);
-        await animateBy(-440, 900);
-        await sleep(250);
-        centerOn(1, "smooth");
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(track);
-    return () => observer.disconnect();
-  }, [mounted]);
-
-  // Mouse drag
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    let startX = 0;
-    let startScroll = 0;
-    let dragging = false;
-
-    const onPointerDown = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      dragging = true;
-      startX = e.clientX;
-      startScroll = track.scrollLeft;
-      track.classList.add("dragging");
-      track.setPointerCapture(e.pointerId);
-    };
-    const onPointerMove = (e: PointerEvent) => {
-      if (!dragging) return;
-      track.scrollLeft = startScroll - (e.clientX - startX);
-    };
-    const onPointerUp = (e: PointerEvent) => {
-      if (!dragging) return;
-      dragging = false;
-      track.classList.remove("dragging");
-      try { track.releasePointerCapture(e.pointerId); } catch {}
-    };
-
-    track.addEventListener("pointerdown", onPointerDown);
-    track.addEventListener("pointermove", onPointerMove);
-    track.addEventListener("pointerup", onPointerUp);
-    track.addEventListener("pointercancel", onPointerUp);
-    track.addEventListener("pointerleave", onPointerUp);
-
-    return () => {
-      track.removeEventListener("pointerdown", onPointerDown);
-      track.removeEventListener("pointermove", onPointerMove);
-      track.removeEventListener("pointerup", onPointerUp);
-      track.removeEventListener("pointercancel", onPointerUp);
-      track.removeEventListener("pointerleave", onPointerUp);
-    };
-  }, []);
-
-  const scrollByOne = (dir: 1 | -1) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const item = track.querySelector<HTMLElement>(".results-item");
-    const step = item ? item.offsetWidth + 16 : 300;
-    track.scrollBy({ left: dir * step, behavior: "smooth" });
-  };
 
   return (
     <section id="nase-prace" className="py-24 md:py-32" style={{ backgroundColor: "#0a0706" }}>
@@ -170,38 +192,12 @@ export default function BeforeAfter() {
           </div>
         </SectionReveal>
 
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => scrollByOne(-1)}
-            aria-label="Previous"
-            className="results-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 hidden sm:flex"
-          >
-            ‹
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollByOne(1)}
-            aria-label="Next"
-            className="results-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 hidden sm:flex"
-          >
-            ›
-          </button>
-
-          <div ref={trackRef} className="results-track">
-            {RESULTS.map((r, i) => (
-              <div key={i} className="results-item">
-                <Image
-                  src={r.src}
-                  alt={r.alt}
-                  fill
-                  sizes="(max-width: 640px) 70vw, 420px"
-                  className="object-cover pointer-events-none"
-                  draggable={false}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          {PAIRS.map((pair, i) => (
+            <SectionReveal key={i} delay={i * 0.1}>
+              <CompareSlider {...pair} />
+            </SectionReveal>
+          ))}
         </div>
       </div>
     </section>
