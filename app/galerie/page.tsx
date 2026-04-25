@@ -9,28 +9,33 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
 import SectionReveal from "@/components/SectionReveal";
 import CustomCursor from "@/components/CustomCursor";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const filters = ["Vše", "Fade", "Klasika", "Vousy", "Holení"];
+type FilterKey = "all" | "fade" | "classic" | "beard" | "shave";
 
-const images = [
-  { src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80", tag: "Fade", alt: "Fade střih" },
-  { src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80", tag: "Vousy", alt: "Úprava vousů" },
-  { src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80", tag: "Klasika", alt: "Klasický střih" },
-  { src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80", tag: "Holení", alt: "Holení břitvou" },
-  { src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80", tag: "Fade", alt: "Skin fade" },
-  { src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80", tag: "Klasika", alt: "Klasický střih s pomazánkou" },
-  { src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=600&q=80", tag: "Vousy", alt: "Beard design" },
-  { src: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80", tag: "Klasika", alt: "Gentleman střih" },
-  { src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80", tag: "Fade", alt: "High fade" },
-  { src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80", tag: "Holení", alt: "Straight razor shave" },
-  { src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80", tag: "Vousy", alt: "Konturování vousů" },
-  { src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80", tag: "Fade", alt: "Taper fade" },
+const filterKeys: FilterKey[] = ["all", "fade", "classic", "beard", "shave"];
+
+const images: { src: string; tag: Exclude<FilterKey, "all">; altCs: string; altEn: string }[] = [
+  { src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80", tag: "fade", altCs: "Fade střih", altEn: "Fade cut" },
+  { src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80", tag: "beard", altCs: "Úprava vousů", altEn: "Beard trim" },
+  { src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80", tag: "classic", altCs: "Klasický střih", altEn: "Classic cut" },
+  { src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80", tag: "shave", altCs: "Holení břitvou", altEn: "Straight razor shave" },
+  { src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80", tag: "fade", altCs: "Skin fade", altEn: "Skin fade" },
+  { src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80", tag: "classic", altCs: "Klasický střih s pomazánkou", altEn: "Classic cut with pomade" },
+  { src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=600&q=80", tag: "beard", altCs: "Beard design", altEn: "Beard design" },
+  { src: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80", tag: "classic", altCs: "Gentleman střih", altEn: "Gentleman cut" },
+  { src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80", tag: "fade", altCs: "High fade", altEn: "High fade" },
+  { src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80", tag: "shave", altCs: "Holení břitvou", altEn: "Straight razor shave" },
+  { src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80", tag: "beard", altCs: "Konturování vousů", altEn: "Beard contouring" },
+  { src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80", tag: "fade", altCs: "Taper fade", altEn: "Taper fade" },
 ];
 
 export default function Galerie() {
   const router = useRouter();
-  const [active, setActive] = useState("Vše");
-  const filtered = active === "Vše" ? images : images.filter((img) => img.tag === active);
+  const { t, locale } = useLanguage();
+  const [active, setActive] = useState<FilterKey>("all");
+  const filterLabels = t.gallery.filters;
+  const filtered = active === "all" ? images : images.filter((img) => img.tag === active);
 
   const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
@@ -122,14 +127,14 @@ export default function Galerie() {
           <Link
             href="/"
             onClick={handleBack}
-            aria-label="Zpět na hlavní stránku"
+            aria-label={t.gallery.backHome}
             className="inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors"
             style={{ color: "#8a7e6a", fontFamily: "var(--font-inter)" }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a46b")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#8a7e6a")}
           >
             <span aria-hidden style={{ fontSize: "1.1rem", lineHeight: 1 }}>←</span>
-            Zpět
+            {t.gallery.back}
           </Link>
         </div>
         <div className="max-w-7xl mx-auto px-6">
@@ -137,11 +142,11 @@ export default function Galerie() {
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <span className="gold-divider" />
-                <span className="text-xs tracking-[0.3em] uppercase" style={{ color: "#c9a46b" }}>Galerie</span>
+                <span className="text-xs tracking-[0.3em] uppercase" style={{ color: "#c9a46b" }}>{t.gallery.pageLabel}</span>
                 <span className="gold-divider" />
               </div>
               <h1 className="text-5xl md:text-6xl mb-4" style={{ fontFamily: "var(--font-playfair)", color: "#f0ead6" }}>
-                Naše práce
+                {t.gallery.pageTitle}
               </h1>
             </div>
           </SectionReveal>
@@ -149,7 +154,7 @@ export default function Galerie() {
           {/* Filters */}
           <SectionReveal delay={0.1}>
             <div className="flex flex-wrap justify-center gap-2 mb-12">
-              {filters.map((f) => (
+              {filterKeys.map((f) => (
                 <button
                   key={f}
                   onClick={() => setActive(f)}
@@ -161,7 +166,7 @@ export default function Galerie() {
                     borderColor: active === f ? "#c9a46b" : "rgba(201,164,107,0.2)",
                   }}
                 >
-                  {f}
+                  {filterLabels[f]}
                 </button>
               ))}
             </div>
@@ -182,12 +187,12 @@ export default function Galerie() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
                 onClick={() => open(i)}
-                aria-label={img.alt}
+                aria-label={locale === "cs" ? img.altCs : img.altEn}
                 className="relative aspect-square overflow-hidden group w-full"
               >
                 <Image
                   src={img.src}
-                  alt={img.alt}
+                  alt={locale === "cs" ? img.altCs : img.altEn}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 768px) 50vw, 25vw"
@@ -200,7 +205,7 @@ export default function Galerie() {
                     className="text-xs tracking-widest uppercase px-2 py-1"
                     style={{ backgroundColor: "rgba(201,164,107,0.2)", color: "#c9a46b", border: "1px solid rgba(201,164,107,0.4)" }}
                   >
-                    {img.tag}
+                    {filterLabels[img.tag]}
                   </span>
                 </div>
               </motion.button>
@@ -221,7 +226,7 @@ export default function Galerie() {
                 onClick={(e) => { e.stopPropagation(); close(); }}
                 className="lightbox-btn lightbox-close"
                 style={{ top: "1.25rem", right: "1.25rem" }}
-                aria-label="Zavřít"
+                aria-label={t.gallery.close}
               >
                 ✕
               </button>
@@ -230,7 +235,7 @@ export default function Galerie() {
                 onClick={(e) => { e.stopPropagation(); prev(); }}
                 className="lightbox-btn lightbox-prev"
                 style={{ left: "1.25rem", top: "50%", transform: "translateY(-50%)" }}
-                aria-label="Předchozí"
+                aria-label={t.gallery.prev}
               >
                 ‹
               </button>
@@ -239,7 +244,7 @@ export default function Galerie() {
                 onClick={(e) => { e.stopPropagation(); next(); }}
                 className="lightbox-btn lightbox-next"
                 style={{ right: "1.25rem", top: "50%", transform: "translateY(-50%)" }}
-                aria-label="Další"
+                aria-label={t.gallery.next}
               >
                 ›
               </button>
@@ -247,7 +252,7 @@ export default function Galerie() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={filtered[openIndex].src}
-                  alt={filtered[openIndex].alt}
+                  alt={locale === "cs" ? filtered[openIndex].altCs : filtered[openIndex].altEn}
                   className={`lightbox-image${fading ? " fading" : ""}`}
                 />
               </div>
@@ -260,7 +265,7 @@ export default function Galerie() {
               className="inline-block px-8 py-3 text-sm tracking-widest border transition-all duration-300"
               style={{ borderColor: "rgba(201,164,107,0.4)", color: "#c9a46b" }}
             >
-              ← Zpět na hlavní stránku
+              ← {t.gallery.backHome}
             </Link>
           </div>
         </div>

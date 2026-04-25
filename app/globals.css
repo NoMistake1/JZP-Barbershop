@@ -562,11 +562,11 @@ body.lightbox-open .custom-cursor-dot { display: none !important; }
   }
 }
 
-/* VideoLoop — push down on mobile so user finishes hero (incl. stats) first */
+/* Hero — extend bottom padding on mobile so stats breathe before video-loop, with no black gap */
 @media (max-width: 768px) {
-  .video-loop-section {
-    margin-top: 8vh;
-    padding-top: 4rem;
+  .hero-section {
+    min-height: calc(100vh + 10vh);
+    padding-bottom: 10vh;
   }
 }
 

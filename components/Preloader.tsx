@@ -43,7 +43,7 @@ export default function Preloader() {
             <svg
               width="160"
               height="80"
-              viewBox="0 0 160 80"
+              viewBox="-32.5 0 160 80"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >

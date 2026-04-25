@@ -6,10 +6,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import SectionReveal from "@/components/SectionReveal";
 
 const barberImages = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80",
+  "/images/barber-1.png",
+  "/images/barber-2.png",
+  "/images/barber-3.png",
+  "/images/barber-4.png",
 ];
 
 export default function Barbers() {

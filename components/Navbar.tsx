@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -38,6 +39,8 @@ function LangPill() {
 
 export default function Navbar() {
   const { t, locale, setLocale } = useLanguage();
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -103,24 +106,41 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
-          <button
-            onClick={() => scrollTo("hero")}
-            className="flex items-center gap-1 group shrink-0"
-            aria-label="JZP Barbershop"
-          >
-            <span
-              className="text-2xl font-bold tracking-wider"
-              style={{ color: "#c9a46b", fontFamily: "var(--font-cinzel)" }}
+          {onHome ? (
+            <button
+              onClick={() => scrollTo("hero")}
+              className="flex items-center gap-1 group shrink-0"
+              aria-label="JZP Barbershop"
             >
-              JZP
-            </span>
-            <span
-              className="text-sm tracking-[0.25em] font-light ml-1 mt-1 hidden sm:inline"
-              style={{ color: "#f0ead6", fontFamily: "var(--font-inter)" }}
-            >
-              BARBERSHOP
-            </span>
-          </button>
+              <span
+                className="text-2xl font-bold tracking-wider"
+                style={{ color: "#c9a46b", fontFamily: "var(--font-cinzel)" }}
+              >
+                JZP
+              </span>
+              <span
+                className="text-sm tracking-[0.25em] font-light ml-1 mt-1 hidden sm:inline"
+                style={{ color: "#f0ead6", fontFamily: "var(--font-inter)" }}
+              >
+                BARBERSHOP
+              </span>
+            </button>
+          ) : (
+            <Link href="/#hero" className="flex items-center gap-1 group shrink-0" aria-label="JZP Barbershop">
+              <span
+                className="text-2xl font-bold tracking-wider"
+                style={{ color: "#c9a46b", fontFamily: "var(--font-cinzel)" }}
+              >
+                JZP
+              </span>
+              <span
+                className="text-sm tracking-[0.25em] font-light ml-1 mt-1 hidden sm:inline"
+                style={{ color: "#f0ead6", fontFamily: "var(--font-inter)" }}
+              >
+                BARBERSHOP
+              </span>
+            </Link>
+          )}
 
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => {
@@ -133,6 +153,13 @@ export default function Navbar() {
               if (item.kind === "link") {
                 return (
                   <Link key={item.key} href={item.href} className={className} style={style}>
+                    {navLabels[item.key]}
+                  </Link>
+                );
+              }
+              if (!onHome) {
+                return (
+                  <Link key={item.id} href={`/#${item.id}`} className={className} style={style}>
                     {navLabels[item.key]}
                   </Link>
                 );
@@ -225,6 +252,25 @@ export default function Navbar() {
                     >
                       <Link
                         href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={className}
+                        style={style}
+                      >
+                        {navLabels[item.key]}
+                      </Link>
+                    </motion.div>
+                  );
+                }
+                if (!onHome) {
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, x: 60 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.08 }}
+                    >
+                      <Link
+                        href={`/#${item.id}`}
                         onClick={() => setMobileOpen(false)}
                         className={className}
                         style={style}

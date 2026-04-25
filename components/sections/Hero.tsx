@@ -120,7 +120,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Layer 1: base gradient */}
       <div
@@ -289,7 +289,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: !isLoading ? 1 : 0 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        className="absolute bottom-[calc(10vh+1.5rem)] md:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
       >
         <div
           className="w-px h-10"

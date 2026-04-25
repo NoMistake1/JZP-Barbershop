@@ -7,20 +7,20 @@ import SectionReveal from "@/components/SectionReveal";
 
 const PAIRS = [
   {
-    before: "/images/after1.png",
-    after: "/images/before1.png",
+    before: "/images/after-1.png",
+    after: "/images/before-1.png",
     altBefore: "Před střihem",
     altAfter: "Po střihu — skin fade",
   },
   {
-    before: "/images/before1.png",
-    after: "/images/after1.png",
+    before: "/images/after-2.png",
+    after: "/images/before-2.png",
     altBefore: "Před úpravou vousů",
     altAfter: "Po profesionální úpravě vousů",
   },
   {
-    before: "/images/before1.png",
-    after: "/images/after1.png",
+    before: "/images/after-3.png",
+    after: "/images/before-3.png",
     altBefore: "Před holením",
     altAfter: "Po holení břitvou",
   },
