@@ -23,9 +23,11 @@ export default function Reviews() {
 
   return (
     <section
-      className="py-24 md:py-32 section-atmosphere section-atmosphere-reviews"
+      className="py-24 md:py-32 section-atmosphere section-atmosphere-reviews has-drift has-grain"
       style={{ backgroundColor: "#0a0706" }}
     >
+      <div className="drift-layer" aria-hidden />
+      <div className="grain-layer" aria-hidden />
       <span className="atmosphere-particle" style={{ width: 4, height: 4, top: "12%", left: "20%", animation: "float-1 24s ease-in-out infinite" }} />
       <span className="atmosphere-particle" style={{ width: 5, height: 5, top: "48%", left: "82%", animation: "float-2 24s ease-in-out 3s infinite" }} />
       <span className="atmosphere-particle" style={{ width: 6, height: 6, top: "78%", left: "14%", animation: "float-3 24s ease-in-out 5s infinite" }} />

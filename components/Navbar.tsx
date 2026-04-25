@@ -5,13 +5,17 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const navSections = [
-  { id: "o-nas", key: "about" as const },
-  { id: "nase-prace", key: "work" as const },
-  { id: "barberi", key: "barbers" as const },
-  { id: "cenik", key: "pricing" as const },
-  { id: "poukazy", key: "vouchers" as const },
-  { id: "kontakt", key: "contact" as const },
+type NavItem =
+  | { kind: "section"; id: string; key: "barbers" | "pricing" | "work" | "vouchers" | "contact" }
+  | { kind: "link"; href: string; key: "gallery" };
+
+const navItems: NavItem[] = [
+  { kind: "section", id: "barberi", key: "barbers" },
+  { kind: "section", id: "cenik", key: "pricing" },
+  { kind: "section", id: "nase-prace", key: "work" },
+  { kind: "section", id: "poukazy", key: "vouchers" },
+  { kind: "link", href: "/galerie", key: "gallery" },
+  { kind: "section", id: "kontakt", key: "contact" },
 ];
 
 function LangPill() {
@@ -57,8 +61,9 @@ export default function Navbar() {
       { rootMargin: "-40% 0px -55% 0px" }
     );
 
-    navSections.forEach(({ id }) => {
-      const el = document.getElementById(id);
+    navItems.forEach((item) => {
+      if (item.kind !== "section") return;
+      const el = document.getElementById(item.id);
       if (el) observer.observe(el);
     });
 
@@ -75,12 +80,12 @@ export default function Navbar() {
     }
   };
 
-  const navLabels: Record<typeof navSections[number]["key"], string> = {
-    about: t.nav.home,
-    work: t.nav.work,
+  const navLabels: Record<NavItem["key"], string> = {
     barbers: t.nav.barbers,
     pricing: t.nav.pricing,
+    work: t.nav.work,
     vouchers: t.nav.vouchers,
+    gallery: t.nav.gallery,
     contact: t.nav.contact,
   };
 
@@ -98,7 +103,11 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-1 group shrink-0">
+          <button
+            onClick={() => scrollTo("hero")}
+            className="flex items-center gap-1 group shrink-0"
+            aria-label="JZP Barbershop"
+          >
             <span
               className="text-2xl font-bold tracking-wider"
               style={{ color: "#c9a46b", fontFamily: "var(--font-cinzel)" }}
@@ -111,24 +120,34 @@ export default function Navbar() {
             >
               BARBERSHOP
             </span>
-          </Link>
+          </button>
 
           <div className="hidden lg:flex items-center gap-8">
-            {navSections.map(({ id, key }) => (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                className={`nav-link-underline text-xs tracking-widest uppercase transition-colors ${
-                  activeSection === id ? "active" : ""
-                }`}
-                style={{
-                  color: activeSection === id ? "#c9a46b" : "#f0ead6",
-                  fontFamily: "var(--font-inter)",
-                }}
-              >
-                {navLabels[key]}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = item.kind === "section" && activeSection === item.id;
+              const className = `nav-link-underline text-xs tracking-widest uppercase transition-colors ${isActive ? "active" : ""}`;
+              const style = {
+                color: isActive ? "#c9a46b" : "#f0ead6",
+                fontFamily: "var(--font-inter)",
+              } as const;
+              if (item.kind === "link") {
+                return (
+                  <Link key={item.key} href={item.href} className={className} style={style}>
+                    {navLabels[item.key]}
+                  </Link>
+                );
+              }
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollTo(item.id)}
+                  className={className}
+                  style={style}
+                >
+                  {navLabels[item.key]}
+                </button>
+              );
+            })}
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
@@ -189,22 +208,46 @@ export default function Navbar() {
             style={{ backgroundColor: "rgba(10,7,6,0.98)" }}
           >
             <div className="flex-1 flex flex-col items-center justify-center gap-8 pt-20">
-              {navSections.map(({ id, key }, i) => (
-                <motion.button
-                  key={id}
-                  initial={{ opacity: 0, x: 60 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  onClick={() => scrollTo(id)}
-                  className="text-2xl tracking-widest uppercase"
-                  style={{
-                    color: activeSection === id ? "#c9a46b" : "#f0ead6",
-                    fontFamily: "var(--font-cinzel)",
-                  }}
-                >
-                  {navLabels[key]}
-                </motion.button>
-              ))}
+              {navItems.map((item, i) => {
+                const isActive = item.kind === "section" && activeSection === item.id;
+                const style = {
+                  color: isActive ? "#c9a46b" : "#f0ead6",
+                  fontFamily: "var(--font-cinzel)",
+                } as const;
+                const className = "text-2xl tracking-widest uppercase";
+                if (item.kind === "link") {
+                  return (
+                    <motion.div
+                      key={item.key}
+                      initial={{ opacity: 0, x: 60 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.08 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={className}
+                        style={style}
+                      >
+                        {navLabels[item.key]}
+                      </Link>
+                    </motion.div>
+                  );
+                }
+                return (
+                  <motion.button
+                    key={item.id}
+                    initial={{ opacity: 0, x: 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.08 }}
+                    onClick={() => scrollTo(item.id)}
+                    className={className}
+                    style={style}
+                  >
+                    {navLabels[item.key]}
+                  </motion.button>
+                );
+              })}
 
               <motion.a
                 initial={{ opacity: 0 }}

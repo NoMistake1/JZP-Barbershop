@@ -1,83 +1,31 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionReveal from "@/components/SectionReveal";
 
-function VoucherCard() {
-  const { t } = useLanguage();
-  return (
-    <div
-      className="relative w-full max-w-sm aspect-[1.7/1] rounded-sm overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #1a1208 0%, #0a0706 50%, #1a1208 100%)",
-        border: "1px solid rgba(201,164,107,0.4)",
-        boxShadow: "0 0 60px rgba(201,164,107,0.15), inset 0 0 30px rgba(201,164,107,0.05)",
-      }}
-    >
-      {/* Decorative corners */}
-      {[["top-2 left-2", "border-t border-l"], ["top-2 right-2", "border-t border-r"], ["bottom-2 left-2", "border-b border-l"], ["bottom-2 right-2", "border-b border-r"]].map(([pos, border], i) => (
-        <div
-          key={i}
-          className={`absolute ${pos} w-6 h-6 ${border}`}
-          style={{ borderColor: "rgba(201,164,107,0.4)" }}
-        />
-      ))}
-
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-        <div className="text-xs tracking-[0.4em] uppercase mb-2" style={{ color: "#8a7e6a" }}>
-          JZP BARBERSHOP · PRAHA
-        </div>
-        <div
-          className="text-3xl font-bold mb-2"
-          style={{ color: "#c9a46b", fontFamily: "var(--font-playfair)" }}
-        >
-          {t.vouchers.giftText}
-        </div>
-        <div className="w-16 h-px mb-3" style={{ backgroundColor: "rgba(201,164,107,0.4)" }} />
-        <div className="text-xs tracking-widest" style={{ color: "#8a7e6a" }}>
-          {t.vouchers.validFor} · {t.vouchers.validity}
-        </div>
-      </div>
-
-      {/* Subtle diagonal stripe */}
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: "repeating-linear-gradient(45deg, #c9a46b 0px, #c9a46b 1px, transparent 1px, transparent 20px)",
-        }}
-      />
-    </div>
-  );
-}
-
 export default function Vouchers() {
   const { t } = useLanguage();
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-15% 0px" });
 
   return (
-    <section id="poukazy" className="py-24 md:py-32 section-atmosphere section-atmosphere-vouchers" style={{ backgroundColor: "#0a0706" }}>
+    <section id="poukazy" className="py-24 md:py-32 section-atmosphere section-atmosphere-vouchers vouchers-section has-drift has-grain" style={{ backgroundColor: "#0a0706" }}>
+      <div className="drift-layer" aria-hidden />
+      <div className="grain-layer" aria-hidden />
       <span className="atmosphere-particle" style={{ width: 4, height: 4, top: "18%", left: "72%", animation: "float-1 24s ease-in-out infinite" }} />
       <span className="atmosphere-particle" style={{ width: 6, height: 6, top: "58%", left: "18%", animation: "float-2 24s ease-in-out 3s infinite" }} />
       <span className="atmosphere-particle" style={{ width: 5, height: 5, top: "82%", left: "62%", animation: "float-3 24s ease-in-out 5s infinite" }} />
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* 3D flip card */}
-          <div className="flex justify-center">
-            <div ref={ref} style={{ perspective: 1000 }}>
-              <motion.div
-                initial={{ rotateY: 180, opacity: 0 }}
-                animate={inView ? { rotateY: 0, opacity: 1 } : {}}
-                transition={{ duration: 1, ease: "easeOut" }}
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <VoucherCard />
-              </motion.div>
+          {/* Voucher photo */}
+          <SectionReveal direction="left">
+            <div className="voucher-visual">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/poukaz.png"
+                alt="JZP Barbershop dárkový poukaz"
+                loading="lazy"
+              />
             </div>
-          </div>
+          </SectionReveal>
 
           {/* Content */}
           <SectionReveal direction="right" delay={0.3}>
@@ -119,24 +67,6 @@ export default function Vouchers() {
                   </div>
                 ))}
               </div>
-
-              <div
-                className="voucher-photo lg:hidden"
-                style={{
-                  aspectRatio: "4 / 3",
-                  width: "100%",
-                  margin: "1.5rem 0",
-                  border: "1px solid rgba(201,164,107,0.15)",
-                  borderRadius: "2px",
-                  background:
-                    "linear-gradient(135deg, #3a2a20, #1c1614) center / cover no-repeat",
-                  backgroundImage:
-                    "url('/images/voucher-mobile.jpg'), linear-gradient(135deg, #3a2a20, #1c1614)",
-                  backgroundSize: "cover, cover",
-                  backgroundPosition: "center, center",
-                }}
-                aria-hidden
-              />
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a

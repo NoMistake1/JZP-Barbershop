@@ -76,20 +76,35 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
+    if (isLoading || countersVisible) return;
     const el = countersRef.current;
-    if (!el || countersVisible) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-          setCountersVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: [0, 0.3, 0.6, 0.9] }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [countersVisible]);
+    if (!el) return;
+    const start = () => {
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            setCountersVisible(true);
+            obs.disconnect();
+          }
+        },
+        { threshold: [0, 0.3, 0.6, 0.9] }
+      );
+      obs.observe(el);
+      return obs;
+    };
+    const t = window.setTimeout(() => {
+      const obs = start();
+      (window as unknown as { __countersObs?: IntersectionObserver }).__countersObs = obs;
+    }, 200);
+    return () => {
+      window.clearTimeout(t);
+      const w = window as unknown as { __countersObs?: IntersectionObserver };
+      if (w.__countersObs) {
+        w.__countersObs.disconnect();
+        delete w.__countersObs;
+      }
+    };
+  }, [countersVisible, isLoading]);
 
   const words = t.hero.headline.split(" ");
   const accentIndex = 1;
@@ -180,6 +195,7 @@ export default function Hero() {
               fontWeight: 900,
               color: "#f0ead6",
               letterSpacing: "0.015em",
+              wordSpacing: "0.12em",
             }}
           >
             {words.map((w, i) => (

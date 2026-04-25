@@ -3,13 +3,17 @@
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const navSections = [
-  { id: "o-nas", key: "about" as const },
-  { id: "nase-prace", key: "work" as const },
-  { id: "barberi", key: "barbers" as const },
-  { id: "cenik", key: "pricing" as const },
-  { id: "poukazy", key: "vouchers" as const },
-  { id: "kontakt", key: "contact" as const },
+type FooterNavItem =
+  | { kind: "section"; id: string; key: "barbers" | "pricing" | "work" | "vouchers" | "contact" }
+  | { kind: "link"; href: string; key: "gallery" };
+
+const footerNavItems: FooterNavItem[] = [
+  { kind: "section", id: "barberi", key: "barbers" },
+  { kind: "section", id: "cenik", key: "pricing" },
+  { kind: "section", id: "nase-prace", key: "work" },
+  { kind: "section", id: "poukazy", key: "vouchers" },
+  { kind: "link", href: "/galerie", key: "gallery" },
+  { kind: "section", id: "kontakt", key: "contact" },
 ];
 
 const socials = [
@@ -21,21 +25,13 @@ const socials = [
 export default function Footer() {
   const { t } = useLanguage();
 
-  const navLabels: Record<typeof navSections[number]["key"], string> = {
-    about: t.nav.home,
-    work: t.nav.work,
+  const navLabels: Record<FooterNavItem["key"], string> = {
     barbers: t.nav.barbers,
     pricing: t.nav.pricing,
+    work: t.nav.work,
     vouchers: t.nav.vouchers,
+    gallery: t.nav.gallery,
     contact: t.nav.contact,
-  };
-
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
   };
 
   return (
@@ -87,27 +83,23 @@ export default function Footer() {
               {t.footer.quickLinks}
             </h4>
             <ul className="space-y-3">
-              {navSections.map(({ id, key }) => (
-                <li key={id}>
-                  <button
-                    onClick={() => scrollTo(id)}
-                    className="text-sm transition-colors"
-                    style={{ color: "#8a7e6a" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a46b")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "#8a7e6a")}
-                  >
-                    {navLabels[key]}
-                  </button>
-                </li>
-              ))}
-              <li>
-                <Link href="/galerie" className="text-sm transition-colors" style={{ color: "#8a7e6a" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a46b")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#8a7e6a")}
-                >
-                  Galerie
-                </Link>
-              </li>
+              {footerNavItems.map((item) => {
+                const href = item.kind === "section" ? `/#${item.id}` : item.href;
+                const key = item.kind === "section" ? item.id : item.key;
+                return (
+                  <li key={key}>
+                    <Link
+                      href={href}
+                      className="text-sm transition-colors"
+                      style={{ color: "#8a7e6a" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a46b")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#8a7e6a")}
+                    >
+                      {navLabels[item.key]}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

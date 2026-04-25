@@ -23,7 +23,7 @@ export default function VideoLoop() {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden video-loop-section"
       style={{
         height: "clamp(65vh, 80vh, 820px)",
         backgroundColor: "#0a0706",

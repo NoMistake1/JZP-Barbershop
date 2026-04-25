@@ -10,7 +10,9 @@ export default function Pricing() {
   const [activeCategory, setActiveCategory] = useState(0);
 
   return (
-    <section id="cenik" className="py-24 md:py-32 section-glow" style={{ backgroundColor: "#0a0706" }}>
+    <section id="cenik" className="py-24 md:py-32 section-glow has-drift has-grain" style={{ backgroundColor: "#0a0706" }}>
+      <div className="drift-layer" aria-hidden />
+      <div className="grain-layer" aria-hidden />
       <div className="max-w-4xl mx-auto px-6">
         <SectionReveal>
           <div className="text-center mb-16">

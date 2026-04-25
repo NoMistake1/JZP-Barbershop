@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
@@ -27,14 +28,110 @@ const images = [
 ];
 
 export default function Galerie() {
+  const router = useRouter();
   const [active, setActive] = useState("Vše");
   const filtered = active === "Vše" ? images : images.filter((img) => img.tag === active);
+
+  const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    e.preventDefault();
+    let sameOrigin = false;
+    if (typeof document !== "undefined" && document.referrer) {
+      try {
+        sameOrigin = new URL(document.referrer).origin === window.location.origin;
+      } catch {}
+    }
+    if (sameOrigin) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [fading, setFading] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+
+  const open = useCallback((i: number) => setOpenIndex(i), []);
+  const close = useCallback(() => setOpenIndex(null), []);
+
+  const swapTo = useCallback(
+    (next: number) => {
+      const len = filtered.length;
+      if (len === 0) return;
+      setFading(true);
+      setTimeout(() => {
+        setOpenIndex(((next % len) + len) % len);
+        setFading(false);
+      }, 300);
+    },
+    [filtered.length]
+  );
+
+  const next = useCallback(() => {
+    if (openIndex === null) return;
+    swapTo(openIndex + 1);
+  }, [openIndex, swapTo]);
+
+  const prev = useCallback(() => {
+    if (openIndex === null) return;
+    swapTo(openIndex - 1);
+  }, [openIndex, swapTo]);
+
+  useEffect(() => {
+    setOpenIndex(null);
+  }, [active]);
+
+  useEffect(() => {
+    if (openIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.body.classList.add("lightbox-open");
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      document.body.classList.remove("lightbox-open");
+    };
+  }, [openIndex, close, next, prev]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) > 50) {
+      if (dx > 0) prev();
+      else next();
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <>
       <CustomCursor />
       <Navbar />
-      <main className="min-h-screen pt-28 pb-24" style={{ backgroundColor: "#0a0706" }}>
+      <main className="min-h-screen pt-28 pb-24 relative" style={{ backgroundColor: "#0a0706" }}>
+        <div className="max-w-7xl mx-auto px-6 mb-6">
+          <Link
+            href="/"
+            onClick={handleBack}
+            aria-label="Zpět na hlavní stránku"
+            className="inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors"
+            style={{ color: "#8a7e6a", fontFamily: "var(--font-inter)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#c9a46b")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#8a7e6a")}
+          >
+            <span aria-hidden style={{ fontSize: "1.1rem", lineHeight: 1 }}>←</span>
+            Zpět
+          </Link>
+        </div>
         <div className="max-w-7xl mx-auto px-6">
           <SectionReveal>
             <div className="text-center mb-12">
@@ -76,14 +173,17 @@ export default function Galerie() {
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
           >
             {filtered.map((img, i) => (
-              <motion.div
+              <motion.button
+                type="button"
                 key={img.src + i}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="relative aspect-square overflow-hidden group"
+                onClick={() => open(i)}
+                aria-label={img.alt}
+                className="relative aspect-square overflow-hidden group w-full"
               >
                 <Image
                   src={img.src}
@@ -103,9 +203,56 @@ export default function Galerie() {
                     {img.tag}
                   </span>
                 </div>
-              </motion.div>
+              </motion.button>
             ))}
           </motion.div>
+
+          {openIndex !== null && filtered[openIndex] && (
+            <div
+              className="lightbox-overlay"
+              role="dialog"
+              aria-modal="true"
+              onClick={close}
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
+            >
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); close(); }}
+                className="lightbox-btn lightbox-close"
+                style={{ top: "1.25rem", right: "1.25rem" }}
+                aria-label="Zavřít"
+              >
+                ✕
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); prev(); }}
+                className="lightbox-btn lightbox-prev"
+                style={{ left: "1.25rem", top: "50%", transform: "translateY(-50%)" }}
+                aria-label="Předchozí"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); next(); }}
+                className="lightbox-btn lightbox-next"
+                style={{ right: "1.25rem", top: "50%", transform: "translateY(-50%)" }}
+                aria-label="Další"
+              >
+                ›
+              </button>
+              <div onClick={(e) => e.stopPropagation()} className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={filtered[openIndex].src}
+                  alt={filtered[openIndex].alt}
+                  className={`lightbox-image${fading ? " fading" : ""}`}
+                />
+              </div>
+            </div>
+          )}
 
           <div className="text-center mt-16">
             <Link
