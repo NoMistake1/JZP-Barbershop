@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePreloader } from "@/contexts/PreloaderContext";
 
-function useCounter(target: number, start: boolean, durationMs = 1600, decimals = 0) {
+function useCounter(target: number, start: boolean, durationMs = 2800, decimals = 0) {
   const [value, setValue] = useState(0);
   useEffect(() => {
     if (!start) return;
@@ -36,7 +36,7 @@ function Counter({
   label: string;
   start: boolean;
 }) {
-  const v = useCounter(target, start, 1600, decimals);
+  const v = useCounter(target, start, 2800, decimals);
   return (
     <div className="flex flex-col items-center">
       <div
@@ -69,9 +69,27 @@ export default function Hero() {
   const { t, locale } = useLanguage();
   const { isLoading } = usePreloader();
   const ref = useRef<HTMLElement>(null);
+  const countersRef = useRef<HTMLDivElement>(null);
+  const [countersVisible, setCountersVisible] = useState(false);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  useEffect(() => {
+    const el = countersRef.current;
+    if (!el || countersVisible) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          setCountersVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: [0, 0.3, 0.6, 0.9] }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [countersVisible]);
 
   const words = t.hero.headline.split(" ");
   const accentIndex = 1;
@@ -101,8 +119,8 @@ export default function Hero() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(201,164,107,0.12) 0%, transparent 45%),
-                            radial-gradient(circle at 80% 70%, rgba(92,63,46,0.18) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(92,63,46,0.35) 0%, transparent 55%),
+                            radial-gradient(circle at 85% 70%, rgba(201,164,107,0.15) 0%, transparent 55%)`,
         }}
       />
       {/* Layer 3: grid with radial mask */}
@@ -231,6 +249,7 @@ export default function Hero() {
 
           {/* Counters */}
           <motion.div
+            ref={countersRef}
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 max-w-3xl mx-auto pt-10 border-t"
             style={{ borderColor: "rgba(201,164,107,0.15)" }}
@@ -242,7 +261,7 @@ export default function Hero() {
                 suffix={c.suffix}
                 decimals={c.decimals}
                 label={c.label}
-                start={!isLoading}
+                start={countersVisible}
               />
             ))}
           </motion.div>

@@ -23,7 +23,7 @@ export default function Reviews() {
 
   return (
     <section
-      className="py-24 md:py-32 section-atmosphere"
+      className="py-24 md:py-32 section-atmosphere section-atmosphere-reviews"
       style={{ backgroundColor: "#0a0706" }}
     >
       <span className="atmosphere-particle" style={{ width: 4, height: 4, top: "12%", left: "20%", animation: "float-1 24s ease-in-out infinite" }} />

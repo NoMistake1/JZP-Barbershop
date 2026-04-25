@@ -7,8 +7,13 @@ export default function CustomCursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    setEnabled(true);
+
     const handleMove = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
@@ -35,6 +40,8 @@ export default function CustomCursor() {
       document.removeEventListener("mouseover", handleOver);
     };
   }, []);
+
+  if (!enabled) return null;
 
   return (
     <>
