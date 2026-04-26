@@ -31,11 +31,11 @@ export default function Rezervace() {
 
         <div className="space-y-4 mb-12">
           <a
-            href="tel:+420777123456"
+            href="tel:+420608965058"
             className="flex items-center justify-center gap-3 w-full py-4 text-sm tracking-widest border"
             style={{ borderColor: "rgba(201,164,107,0.4)", color: "#c9a46b", fontFamily: "var(--font-inter)" }}
           >
-            📞 +420 777 123 456
+            📞 +420 608 965 058
           </a>
           <a
             href="mailto:info@jzpbarbershop.cz"

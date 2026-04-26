@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionReveal from "@/components/SectionReveal";
 
@@ -12,8 +13,8 @@ const IMAGES = [
   { src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600&q=80", alt: "Pánský styling" },
   { src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1600&q=80", alt: "Detail střihu" },
   { src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=1600&q=80", alt: "Úprava vousů" },
-  { src: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=1600&q=80", alt: "Barber při práci" },
-  { src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=1600&q=80", alt: "Atmosféra salonu" },
+  { src: "/images/galerie-pic-1.png", alt: "Pánský haircut" },
+  { src: "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=1600&q=80&auto=format&fit=crop", alt: "Detail pánského střihu" },
 ];
 
 export default function Gallery() {
@@ -101,7 +102,7 @@ export default function Gallery() {
           </div>
         </SectionReveal>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
           {IMAGES.map((img, i) => (
             <SectionReveal key={i} delay={(i % 4) * 0.05}>
               <button
@@ -125,6 +126,33 @@ export default function Gallery() {
             </SectionReveal>
           ))}
         </div>
+
+        <SectionReveal delay={0.2}>
+          <div className="text-center">
+            <Link
+              href="/galerie"
+              className="inline-flex items-center gap-3 px-8 py-3 text-xs tracking-[0.25em] uppercase border transition-all duration-300"
+              style={{
+                borderColor: "rgba(201,164,107,0.4)",
+                color: "#c9a46b",
+                fontFamily: "var(--font-inter)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = "#c9a46b";
+                (e.currentTarget as HTMLElement).style.color = "#0a0706";
+                (e.currentTarget as HTMLElement).style.borderColor = "#c9a46b";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "#c9a46b";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,164,107,0.4)";
+              }}
+            >
+              {t.gallery.viewAll}
+              <span aria-hidden style={{ fontSize: "1.1rem", lineHeight: 1 }}>→</span>
+            </Link>
+          </div>
+        </SectionReveal>
       </div>
 
       {openIndex !== null && (

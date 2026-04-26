@@ -189,7 +189,7 @@ export default function Hero() {
           {/* Main headline */}
           <motion.h1
             variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[0.95]"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[1.1]"
             style={{
               fontFamily: "var(--font-cinzel)",
               fontWeight: 900,

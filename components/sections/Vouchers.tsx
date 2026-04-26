@@ -15,9 +15,9 @@ export default function Vouchers() {
       <span className="atmosphere-particle" style={{ width: 5, height: 5, top: "82%", left: "62%", animation: "float-3 24s ease-in-out 5s infinite" }} />
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Voucher photo */}
+          {/* Voucher photo — desktop only (mobile photo rendered inside content column below) */}
           <SectionReveal direction="left">
-            <div className="voucher-visual">
+            <div className="voucher-visual hidden lg:block">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/poukaz.png"
@@ -66,6 +66,16 @@ export default function Vouchers() {
                     <span className="text-sm" style={{ color: "#8a7e6a" }}>{feat}</span>
                   </div>
                 ))}
+              </div>
+
+              {/* Voucher photo — mobile only, sits between features and CTA buttons */}
+              <div className="voucher-visual lg:hidden mb-8">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/poukaz.png"
+                  alt="JZP Barbershop dárkový poukaz"
+                  loading="lazy"
+                />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">

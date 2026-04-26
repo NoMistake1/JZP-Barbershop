@@ -438,6 +438,15 @@ body.lightbox-open .custom-cursor-dot { display: none !important; }
   font-size: clamp(0.95rem, 2.3vw, 1.05rem);
   line-height: 1.35;
 }
+.pricing-desc {
+  margin-top: 0.35rem;
+  color: #8a7e6a;
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(0.78rem, 1.8vw, 0.85rem);
+  line-height: 1.4;
+  font-style: italic;
+  max-width: 80%;
+}
 .pricing-price {
   white-space: nowrap;
   flex-shrink: 0;
@@ -532,12 +541,12 @@ body.lightbox-open .custom-cursor-dot { display: none !important; }
 
 /* Vouchers — poukaz.png visual */
 .voucher-visual {
-  display: flex;
-  justify-content: center;
   width: 100%;
+  text-align: center;
 }
 .voucher-visual img {
   display: block;
+  margin: 0 auto;
   width: 100%;
   max-width: 480px;
   height: auto;

@@ -33,7 +33,7 @@ export default function InstagramFeed() {
               {t.instagram.title}
             </h2>
             <a
-              href="https://instagram.com/jzp_barbershop"
+              href="https://www.instagram.com/j.z.p.barbershop_yasin/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm tracking-widest transition-colors"
@@ -54,7 +54,7 @@ export default function InstagramFeed() {
           {igImages.map((src, i) => (
             <SectionReveal key={i} delay={i * 0.05}>
               <motion.a
-                href="https://instagram.com/jzp_barbershop"
+                href="https://www.instagram.com/j.z.p.barbershop_yasin/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative block aspect-square overflow-hidden group"
@@ -86,7 +86,7 @@ export default function InstagramFeed() {
         <SectionReveal>
           <div className="text-center">
             <a
-              href="https://instagram.com/jzp_barbershop"
+              href="https://www.instagram.com/j.z.p.barbershop_yasin/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-3 text-sm tracking-widest border transition-all duration-300"

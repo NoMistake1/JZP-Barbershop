@@ -8,14 +8,14 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 type NavItem =
   | { kind: "section"; id: string; key: "barbers" | "pricing" | "work" | "vouchers" | "contact" }
-  | { kind: "link"; href: string; key: "gallery" };
+  | { kind: "link"; href: string; key: "gallery"; observeId?: string };
 
 const navItems: NavItem[] = [
   { kind: "section", id: "barberi", key: "barbers" },
   { kind: "section", id: "cenik", key: "pricing" },
   { kind: "section", id: "nase-prace", key: "work" },
   { kind: "section", id: "poukazy", key: "vouchers" },
-  { kind: "link", href: "/galerie", key: "gallery" },
+  { kind: "link", href: "/galerie", key: "gallery", observeId: "galerie-home" },
   { kind: "section", id: "kontakt", key: "contact" },
 ];
 
@@ -65,8 +65,9 @@ export default function Navbar() {
     );
 
     navItems.forEach((item) => {
-      if (item.kind !== "section") return;
-      const el = document.getElementById(item.id);
+      const id = item.kind === "section" ? item.id : item.observeId;
+      if (!id) return;
+      const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
 
@@ -144,7 +145,10 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => {
-              const isActive = item.kind === "section" && activeSection === item.id;
+              const isActive =
+                (item.kind === "section" && activeSection === item.id) ||
+                (item.kind === "link" &&
+                  ((onHome && item.observeId === activeSection) || pathname === item.href));
               const className = `nav-link-underline text-xs tracking-widest uppercase transition-colors ${isActive ? "active" : ""}`;
               const style = {
                 color: isActive ? "#c9a46b" : "#f0ead6",
@@ -236,7 +240,10 @@ export default function Navbar() {
           >
             <div className="flex-1 flex flex-col items-center justify-center gap-8 pt-20">
               {navItems.map((item, i) => {
-                const isActive = item.kind === "section" && activeSection === item.id;
+                const isActive =
+                  (item.kind === "section" && activeSection === item.id) ||
+                  (item.kind === "link" &&
+                    ((onHome && item.observeId === activeSection) || pathname === item.href));
                 const style = {
                   color: isActive ? "#c9a46b" : "#f0ead6",
                   fontFamily: "var(--font-cinzel)",

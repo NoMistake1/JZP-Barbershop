@@ -75,30 +75,40 @@ export const translations = {
       popular: "Nejoblíbenější",
       categories: [
         {
-          name: "Střihy",
+          name: "Pánské střihy",
           items: [
-            { name: "Střih vlasů", price: "350 Kč", popular: false },
-            { name: "Střih + styling", price: "420 Kč", popular: true },
-            { name: "Dětský střih (do 12 let)", price: "250 Kč", popular: false },
-            { name: "Fade střih", price: "450 Kč", popular: false },
-            { name: "Skin fade", price: "500 Kč", popular: true },
+            { name: "Klasické stříhání", desc: "Stříhání + mytí", price: "600 Kč", popular: false },
+            { name: "Klasické stříhání + masáž hlavy", desc: "Stříhání + mytí a masáž hlavy", price: "700 Kč", popular: false },
+            { name: "Klasické stříhání vlasů + úprava vousů", desc: "Stříhání + úprava vousů a mytí", price: "1 000 Kč", popular: false },
+            { name: "Klasické stříhání + kosmetické čištění obličeje, depilace", desc: "Stříhání + mytí, kosmetické čištění obličeje, depilace", price: "800 Kč", popular: false },
+            { name: "Stříhání pouze strojkem", desc: "", price: "500 Kč", popular: false },
+            { name: "Stříhání dlouhých vlasů", desc: "", price: "700 Kč", popular: false },
+            { name: "Pánský střih Exclusive Experience", desc: "Střih, úprava vousů, masáž hlavy, kosmetické čištění obličeje, depilace obličeje", price: "1 450 Kč", popular: false },
           ],
         },
         {
-          name: "Holení & vousy",
+          name: "Úprava vousů",
           items: [
-            { name: "Holení břitvou", price: "350 Kč", popular: false },
-            { name: "Úprava vousů", price: "250 Kč", popular: false },
-            { name: "Holení + úprava vousů", price: "550 Kč", popular: true },
-            { name: "Konturování vousů", price: "200 Kč", popular: false },
+            { name: "Úprava vousů", desc: "", price: "400 Kč", popular: false },
+            { name: "Úprava vousů a tónování vousů", desc: "Úprava vousů a barvení", price: "700 Kč", popular: false },
           ],
         },
         {
-          name: "Balíčky",
+          name: "Dětské střihy",
           items: [
-            { name: "Gentleman balíček (střih + holení)", price: "650 Kč", popular: true },
-            { name: "VIP balíček (střih + holení + masáž hlavy)", price: "850 Kč", popular: false },
-            { name: "Kompletní péče", price: "1 100 Kč", popular: false },
+            { name: "Dětský střih do 6 let", desc: "", price: "400 Kč", popular: false },
+            { name: "Střih mladého muže od 6 do 12 let", desc: "", price: "500 Kč", popular: false },
+          ],
+        },
+        {
+          name: "Barvení pánských vlasů",
+          items: [
+            { name: "Základní barvení – krátké vlasy", desc: "", price: "800 Kč", popular: false },
+            { name: "Základní barvení – střední délka", desc: "", price: "1 000 Kč", popular: false },
+            { name: "Částečné zesvětlení do blond tónů", desc: "", price: "1 300 Kč", popular: false },
+            { name: "Celkové zesvětlení do blond tónů", desc: "", price: "1 600 Kč", popular: false },
+            { name: "Celkové zesvětlení do šedých tónů", desc: "", price: "1 800 Kč", popular: false },
+            { name: "Celkové zesvětlení do stříbrných / bílých tónů", desc: "", price: "2 000 Kč", popular: false },
           ],
         },
       ],
@@ -129,6 +139,7 @@ export const translations = {
       pageLabel: "Galerie",
       back: "Zpět",
       backHome: "Zpět na hlavní stránku",
+      viewAll: "Prohlédnout celou galerii",
       filters: {
         all: "Vše",
         fade: "Fade",
@@ -167,24 +178,24 @@ export const translations = {
     instagram: {
       sectionLabel: "Instagram",
       title: "Sledujte nás",
-      handle: "@jzp_barbershop",
+      handle: "@j.z.p.barbershop_yasin",
       cta: "Otevřít Instagram",
     },
     contact: {
       sectionLabel: "Kontakt",
       title: "Najdete nás zde",
-      address: "Na Příkopě 12, Praha 1, 110 00",
-      phone: "+420 777 123 456",
+      address: "nám. J. z Poděbrad 1382/2, 120 00 Praha 2 – Vinohrady",
+      phone: "+420 608 965 058",
       email: "info@jzpbarbershop.cz",
       openingHours: "Otevírací doba",
       hours: [
-        { day: "Pondělí", time: "09:00 – 19:00" },
-        { day: "Úterý", time: "09:00 – 19:00" },
-        { day: "Středa", time: "09:00 – 19:00" },
+        { day: "Pondělí", time: "09:00 – 20:00" },
+        { day: "Úterý", time: "09:00 – 20:00" },
+        { day: "Středa", time: "09:00 – 20:00" },
         { day: "Čtvrtek", time: "09:00 – 20:00" },
         { day: "Pátek", time: "09:00 – 20:00" },
-        { day: "Sobota", time: "09:00 – 17:00" },
-        { day: "Neděle", time: "Zavřeno" },
+        { day: "Sobota", time: "09:00 – 20:00" },
+        { day: "Neděle", time: "09:00 – 20:00" },
       ],
       formName: "Vaše jméno",
       formEmail: "Váš e-mail",
@@ -209,6 +220,114 @@ export const translations = {
       title: "Stránka nenalezena",
       subtitle: "Zdá se, že jste zašli příliš daleko.",
       back: "Zpět na hlavní stránku",
+    },
+    privacy: {
+      pageLabel: "Právní informace",
+      pageTitle: "Zásady ochrany osobních údajů",
+      lastUpdated: "Poslední aktualizace: 26. dubna 2026",
+      intro: "Vážíme si vašeho soukromí. Tento dokument popisuje, jaké osobní údaje shromažďujeme, jak je používáme a jaká máte práva podle Nařízení Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákona č. 110/2019 Sb., o zpracování osobních údajů.",
+      back: "Zpět na hlavní stránku",
+      sections: [
+        {
+          heading: "1. Správce osobních údajů",
+          body: [
+            "Správcem vašich osobních údajů je společnost JZP Barbershop, provozovna nám. J. z Poděbrad 1382/2, 120 00 Praha 2 – Vinohrady.",
+            "Kontaktní e-mail: info@jzpbarbershop.cz",
+            "Telefon: +420 608 965 058",
+          ],
+        },
+        {
+          heading: "2. Jaké osobní údaje zpracováváme",
+          body: [
+            "V rámci provozu webových stránek a poskytování služeb zpracováváme následující kategorie údajů:",
+          ],
+          list: [
+            "Identifikační údaje – jméno a příjmení",
+            "Kontaktní údaje – e-mailová adresa, telefonní číslo",
+            "Obsah komunikace – text zprávy odeslané přes kontaktní formulář",
+            "Údaje o rezervaci – datum, čas a typ vybrané služby, zvolený barber",
+            "Technické údaje – IP adresa, typ prohlížeče, údaje z cookies (viz čl. 6)",
+          ],
+        },
+        {
+          heading: "3. Účely a právní základ zpracování",
+          body: [
+            "Vaše údaje zpracováváme pouze pro jasně definované účely a vždy na zákonném základě podle čl. 6 odst. 1 GDPR:",
+          ],
+          list: [
+            "Vyřízení rezervace a poskytnutí služby — plnění smlouvy (čl. 6 odst. 1 písm. b GDPR)",
+            "Odpověď na zprávu z kontaktního formuláře — oprávněný zájem (čl. 6 odst. 1 písm. f GDPR)",
+            "Plnění zákonných povinností (účetnictví, daňové předpisy) — právní povinnost (čl. 6 odst. 1 písm. c GDPR)",
+            "Zasílání obchodních sdělení a marketingu — pouze na základě vašeho souhlasu (čl. 6 odst. 1 písm. a GDPR)",
+          ],
+        },
+        {
+          heading: "4. Doba uchování údajů",
+          body: [
+            "Osobní údaje uchováváme pouze po dobu nezbytně nutnou pro daný účel:",
+          ],
+          list: [
+            "Údaje z rezervací: po dobu 3 let od poslední návštěvy",
+            "Účetní doklady: 10 let dle zákona o účetnictví",
+            "Zprávy z kontaktního formuláře: 1 rok od vyřízení",
+            "Marketingový souhlas: do jeho odvolání",
+          ],
+        },
+        {
+          heading: "5. Předávání údajů třetím stranám",
+          body: [
+            "Vaše osobní údaje nepředáváme do třetích zemí mimo EU. V rámci běžného provozu spolupracujeme s prověřenými zpracovateli:",
+          ],
+          list: [
+            "Poskytovatel hostingu webových stránek",
+            "Rezervační systém",
+            "Poskytovatel e-mailové služby",
+            "Účetní kancelář",
+          ],
+        },
+        {
+          heading: "6. Cookies",
+          body: [
+            "Naše webové stránky používají cookies pro zajištění funkčnosti, analýzu návštěvnosti a zlepšení uživatelského zážitku. Cookies dělíme do tří kategorií:",
+          ],
+          list: [
+            "Nezbytné cookies — bez nich web nemůže správně fungovat (např. uchování jazykového nastavení). Nelze odmítnout.",
+            "Analytické cookies — pomáhají nám rozumět, jak návštěvníci web používají. Anonymizované, pouze na základě vašeho souhlasu.",
+            "Marketingové cookies — slouží pro cílení reklam. Pouze na základě vašeho souhlasu.",
+          ],
+          bodyAfter: [
+            "Souhlas s cookies můžete kdykoliv změnit nebo odvolat v patičce stránek (odkaz „Nastavení cookies\") nebo v nastavení svého prohlížeče.",
+          ],
+        },
+        {
+          heading: "7. Vaše práva",
+          body: [
+            "V souvislosti se zpracováním vašich osobních údajů máte následující práva:",
+          ],
+          list: [
+            "Právo na přístup — vědět, jaké údaje o vás zpracováváme",
+            "Právo na opravu — pokud zpracováváme nepřesné údaje",
+            "Právo na výmaz („právo být zapomenut\")",
+            "Právo na omezení zpracování",
+            "Právo na přenositelnost údajů",
+            "Právo vznést námitku proti zpracování na základě oprávněného zájmu",
+            "Právo odvolat udělený souhlas",
+            "Právo podat stížnost u Úřadu pro ochranu osobních údajů (www.uoou.cz)",
+          ],
+        },
+        {
+          heading: "8. Zabezpečení",
+          body: [
+            "Přijali jsme přiměřená technická a organizační opatření, abychom vaše údaje chránili před neoprávněným přístupem, ztrátou nebo zneužitím. Komunikace s naším webem je šifrována protokolem HTTPS.",
+          ],
+        },
+        {
+          heading: "9. Kontakt",
+          body: [
+            "Pokud chcete uplatnit svá práva nebo máte jakékoli dotazy ohledně zpracování osobních údajů, kontaktujte nás na e-mailu info@jzpbarbershop.cz nebo telefonicky na +420 608 965 058.",
+          ],
+        },
+      ],
     },
   },
   en: {
@@ -285,30 +404,40 @@ export const translations = {
       popular: "Most popular",
       categories: [
         {
-          name: "Haircuts",
+          name: "Men's Haircuts",
           items: [
-            { name: "Haircut", price: "350 CZK", popular: false },
-            { name: "Haircut + Styling", price: "420 CZK", popular: true },
-            { name: "Kids haircut (under 12)", price: "250 CZK", popular: false },
-            { name: "Fade haircut", price: "450 CZK", popular: false },
-            { name: "Skin fade", price: "500 CZK", popular: true },
+            { name: "Classic haircut", desc: "Cut + wash", price: "600 CZK", popular: false },
+            { name: "Classic haircut + head massage", desc: "Cut + wash and head massage", price: "700 CZK", popular: false },
+            { name: "Classic haircut + beard trim", desc: "Cut + beard trim and wash", price: "1 000 CZK", popular: false },
+            { name: "Classic haircut + facial cleansing, depilation", desc: "Cut + wash, facial cleansing, depilation", price: "800 CZK", popular: false },
+            { name: "Clipper-only haircut", desc: "", price: "500 CZK", popular: false },
+            { name: "Long hair haircut", desc: "", price: "700 CZK", popular: false },
+            { name: "Men's Exclusive Experience", desc: "Cut, beard trim, head massage, facial cleansing, facial depilation", price: "1 450 CZK", popular: false },
           ],
         },
         {
-          name: "Shaving & Beard",
+          name: "Beard Care",
           items: [
-            { name: "Straight razor shave", price: "350 CZK", popular: false },
-            { name: "Beard trim", price: "250 CZK", popular: false },
-            { name: "Shave + Beard trim", price: "550 CZK", popular: true },
-            { name: "Beard contouring", price: "200 CZK", popular: false },
+            { name: "Beard trim", desc: "", price: "400 CZK", popular: false },
+            { name: "Beard trim & tinting", desc: "Beard trim and coloring", price: "700 CZK", popular: false },
           ],
         },
         {
-          name: "Packages",
+          name: "Kids Haircuts",
           items: [
-            { name: "Gentleman package (cut + shave)", price: "650 CZK", popular: true },
-            { name: "VIP package (cut + shave + head massage)", price: "850 CZK", popular: false },
-            { name: "Complete care", price: "1 100 CZK", popular: false },
+            { name: "Kids haircut up to 6 years", desc: "", price: "400 CZK", popular: false },
+            { name: "Young men's cut 6–12 years", desc: "", price: "500 CZK", popular: false },
+          ],
+        },
+        {
+          name: "Men's Hair Coloring",
+          items: [
+            { name: "Basic color – short hair", desc: "", price: "800 CZK", popular: false },
+            { name: "Basic color – medium length", desc: "", price: "1 000 CZK", popular: false },
+            { name: "Partial blonde lightening", desc: "", price: "1 300 CZK", popular: false },
+            { name: "Full blonde lightening", desc: "", price: "1 600 CZK", popular: false },
+            { name: "Full lightening to grey tones", desc: "", price: "1 800 CZK", popular: false },
+            { name: "Full lightening to silver / white tones", desc: "", price: "2 000 CZK", popular: false },
           ],
         },
       ],
@@ -339,6 +468,7 @@ export const translations = {
       pageLabel: "Gallery",
       back: "Back",
       backHome: "Back to homepage",
+      viewAll: "View full gallery",
       filters: {
         all: "All",
         fade: "Fade",
@@ -377,24 +507,24 @@ export const translations = {
     instagram: {
       sectionLabel: "Instagram",
       title: "Follow Us",
-      handle: "@jzp_barbershop",
+      handle: "@j.z.p.barbershop_yasin",
       cta: "Open Instagram",
     },
     contact: {
       sectionLabel: "Contact",
       title: "Find Us Here",
-      address: "Václavské náměstí 1, Prague 1, 110 00",
-      phone: "+420 777 123 456",
+      address: "nám. J. z Poděbrad 1382/2, 120 00 Prague 2 – Vinohrady",
+      phone: "+420 608 965 058",
       email: "info@jzpbarbershop.cz",
       openingHours: "Opening Hours",
       hours: [
-        { day: "Monday", time: "09:00 – 19:00" },
-        { day: "Tuesday", time: "09:00 – 19:00" },
-        { day: "Wednesday", time: "09:00 – 19:00" },
+        { day: "Monday", time: "09:00 – 20:00" },
+        { day: "Tuesday", time: "09:00 – 20:00" },
+        { day: "Wednesday", time: "09:00 – 20:00" },
         { day: "Thursday", time: "09:00 – 20:00" },
         { day: "Friday", time: "09:00 – 20:00" },
-        { day: "Saturday", time: "09:00 – 17:00" },
-        { day: "Sunday", time: "Closed" },
+        { day: "Saturday", time: "09:00 – 20:00" },
+        { day: "Sunday", time: "09:00 – 20:00" },
       ],
       formName: "Your name",
       formEmail: "Your email",
@@ -419,6 +549,114 @@ export const translations = {
       title: "Page Not Found",
       subtitle: "It seems you've gone too far.",
       back: "Back to homepage",
+    },
+    privacy: {
+      pageLabel: "Legal information",
+      pageTitle: "Privacy Policy",
+      lastUpdated: "Last updated: April 26, 2026",
+      intro: "We respect your privacy. This document describes what personal data we collect, how we use it, and what your rights are under Regulation (EU) 2016/679 of the European Parliament and of the Council (GDPR) and Czech Act No. 110/2019 Coll. on personal data processing.",
+      back: "Back to homepage",
+      sections: [
+        {
+          heading: "1. Data Controller",
+          body: [
+            "The controller of your personal data is JZP Barbershop, located at nám. J. z Poděbrad 1382/2, 120 00 Prague 2 – Vinohrady.",
+            "Contact email: info@jzpbarbershop.cz",
+            "Phone: +420 608 965 058",
+          ],
+        },
+        {
+          heading: "2. Personal data we process",
+          body: [
+            "In connection with operating this website and providing our services, we process the following categories of data:",
+          ],
+          list: [
+            "Identification data — first and last name",
+            "Contact data — email address, phone number",
+            "Communication content — text of messages sent through the contact form",
+            "Booking data — date, time, type of selected service, chosen barber",
+            "Technical data — IP address, browser type, cookie data (see section 6)",
+          ],
+        },
+        {
+          heading: "3. Purposes and legal basis of processing",
+          body: [
+            "We process your data only for clearly defined purposes and always on a lawful basis under Article 6(1) GDPR:",
+          ],
+          list: [
+            "Handling reservations and providing services — performance of a contract (Art. 6(1)(b) GDPR)",
+            "Responding to messages from the contact form — legitimate interest (Art. 6(1)(f) GDPR)",
+            "Compliance with legal obligations (accounting, tax law) — legal obligation (Art. 6(1)(c) GDPR)",
+            "Sending commercial communications and marketing — only on the basis of your consent (Art. 6(1)(a) GDPR)",
+          ],
+        },
+        {
+          heading: "4. Retention periods",
+          body: [
+            "We retain personal data only for the time necessary for the given purpose:",
+          ],
+          list: [
+            "Booking data: 3 years from the last visit",
+            "Accounting documents: 10 years under the Accounting Act",
+            "Contact form messages: 1 year after resolution",
+            "Marketing consent: until withdrawn",
+          ],
+        },
+        {
+          heading: "5. Sharing data with third parties",
+          body: [
+            "We do not transfer your personal data to countries outside the EU. As part of regular operations we cooperate with vetted processors:",
+          ],
+          list: [
+            "Website hosting provider",
+            "Reservation system",
+            "Email service provider",
+            "Accounting office",
+          ],
+        },
+        {
+          heading: "6. Cookies",
+          body: [
+            "Our website uses cookies to ensure functionality, analyze traffic, and improve the user experience. We classify cookies into three categories:",
+          ],
+          list: [
+            "Essential cookies — without them the site cannot function correctly (e.g. saving your language preference). Cannot be declined.",
+            "Analytics cookies — help us understand how visitors use the site. Anonymized, only with your consent.",
+            "Marketing cookies — used for ad targeting. Only with your consent.",
+          ],
+          bodyAfter: [
+            "You can change or withdraw your cookie consent at any time via the footer link \"Cookie settings\" or in your browser settings.",
+          ],
+        },
+        {
+          heading: "7. Your rights",
+          body: [
+            "In connection with the processing of your personal data, you have the following rights:",
+          ],
+          list: [
+            "Right of access — to know what data we process about you",
+            "Right to rectification — if we process inaccurate data",
+            "Right to erasure (\"right to be forgotten\")",
+            "Right to restriction of processing",
+            "Right to data portability",
+            "Right to object to processing based on legitimate interest",
+            "Right to withdraw a granted consent",
+            "Right to lodge a complaint with the Office for Personal Data Protection (www.uoou.cz)",
+          ],
+        },
+        {
+          heading: "8. Security",
+          body: [
+            "We have taken appropriate technical and organizational measures to protect your data against unauthorized access, loss, or misuse. Communication with our website is encrypted via HTTPS.",
+          ],
+        },
+        {
+          heading: "9. Contact",
+          body: [
+            "If you wish to exercise your rights or have any questions about the processing of personal data, contact us at info@jzpbarbershop.cz or by phone at +420 608 965 058.",
+          ],
+        },
+      ],
     },
   },
 } as const;

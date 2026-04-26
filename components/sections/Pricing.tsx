@@ -76,7 +76,10 @@ export default function Pricing() {
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
             >
               <div className="pricing-header">
-                <span className="pricing-name">{item.name}</span>
+                <div className="flex-1 min-w-0">
+                  <span className="pricing-name">{item.name}</span>
+                  {item.desc && <p className="pricing-desc">{item.desc}</p>}
+                </div>
                 <span className="pricing-price">{item.price}</span>
               </div>
               {item.popular && (
